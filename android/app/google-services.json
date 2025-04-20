@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "891077490967",
+    "project_id": "pandabud-351c9",
+    "storage_bucket": "pandabud-351c9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891077490967:android:8d02318e0af8225b8b1f52",
+        "android_client_info": {
+          "package_name": "com.example.project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMsJRxd_hQHdI5HLVwY2V1Xwj138W6VzM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
