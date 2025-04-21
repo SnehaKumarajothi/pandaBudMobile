@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:project/pages/chat_page.dart';
 import 'login_page.dart';
 import 'sign_up_page.dart';
+
 import 'package:project/features/buttons.dart';
 import 'package:project/features/auth_service.dart';
+import 'package:sign_in_button/sign_in_button.dart';
 
 class LandingPage extends StatelessWidget {
   final AuthService _authService = AuthService();
@@ -95,28 +98,24 @@ class LandingPage extends StatelessWidget {
                 SizedBox(height: 15),
 
                 // Sign in thru Google Button
-                CustomButton(
-                  text: 'Sign In Using Google',
+                SignInButton(
+                  Buttons.google,
+                  text: "Sign in with Google",
                   onPressed: () async {
                     try {
                       final user = await _authService.loginWithGoogle();
-                      if (user == null) {
-                        print("Sign-in cancelled by user");
-                      } else {
+                      if (user != null) {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ChatPage()), // your target page
+                          MaterialPageRoute(builder: (_) => ChatPage()),
                         );
+                      } else {
+                        print("Sign-in cancelled by user");
                       }
                     } catch (e) {
-                      print("Landing page: ${e}");
+                      print("Landing page: $e");
                     }
                   },
-                  color: Colors.teal[50]!,
-                  textColor: Colors.teal,
-                  border: BorderSide(color: Colors.teal),
                 ),
               ],
             ),

@@ -154,6 +154,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
+      maxLines:2,
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
@@ -167,6 +168,88 @@ class CustomTextField extends StatelessWidget {
         filled: true,
         fillColor: const Color(0xFFF0F3F4),
       ),
+    );
+  }
+}
+
+typedef Callback = void Function(String);
+
+// PROFILE MESSAGES 
+class ProfileMessage extends StatefulWidget{
+  final String hintText;
+  final String userText;
+  final IconData iconData;
+  final Callback callBackFunc;
+
+  const ProfileMessage({super.key, required this.hintText, required this.userText, required this.iconData, required this.callBackFunc});
+
+  @override
+  State<ProfileMessage> createState() => _ProfileMessageState();
+}
+
+class _ProfileMessageState extends State<ProfileMessage> {
+  void _showEditDialog(editVariableValue){
+    final TextEditingController controller = TextEditingController(text: editVariableValue); // set up a controller 
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Update ${widget.hintText}', style: TextStyle(color: Colors.teal)),
+        backgroundColor: Colors.white,
+        content: TextField(
+          controller: controller,
+          decoration: InputDecoration(
+            hintText: editVariableValue,
+          ),
+        ),
+        actions: [
+          // cancel button
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context); // close dialog without saving
+            },
+            child: Text('Cancel', style: TextStyle(color: Colors.teal)),
+          ),
+
+          // update button
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 230, 233, 234),),
+            onPressed: () {
+              print("update function called!");
+              widget.callBackFunc(controller.text);
+              Navigator.pop(context);
+            },
+            child: Text('Update', style: TextStyle(color: Colors.teal)),
+          ),
+        ],
+      ),
+    );}
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () =>_showEditDialog(widget.userText),
+      child: Row(children: [
+      
+        // icon of message
+        Padding(padding: EdgeInsets.all(8),
+        child: Icon(widget.iconData, color: Colors.teal,)),
+      
+        // message
+        Expanded(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFFF0F3F4),
+            child: Column(
+              mainAxisSize: MainAxisSize.min, 
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+              Text(widget.hintText),
+              Text(widget.userText, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))
+            ],),
+          ),
+        )
+      ],),
     );
   }
 }

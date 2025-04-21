@@ -1,8 +1,10 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-//import 'package:project/pages/sign_up_page.dart';
-import 'pages/landing_page.dart';
+
+import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
+
+import 'pages/landing_page.dart';
+import 'pages/profile_page.dart';
 
 
 void main() async{
@@ -37,7 +39,7 @@ class PandaBudApp extends StatelessWidget {
         primarySwatch: Colors.teal,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: LandingPage(),
+      home: ProfilePage(),
     );
   }
 }

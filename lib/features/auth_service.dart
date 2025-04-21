@@ -1,13 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+
+
 class AuthService {
   final _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   // Sign in with Google function
   Future<UserCredential?> loginWithGoogle() async{
     try{
-     final googleUser =  await GoogleSignIn().signIn();
+     final googleUser =  await _googleSignIn.signIn();
      final googleAuth = await googleUser?.authentication;
      final cred = GoogleAuthProvider.credential(
       idToken: googleAuth?.idToken, 
@@ -20,6 +23,16 @@ class AuthService {
     }
 
     return null;
+  }
+
+  // Sign out with Google function
+  Future<void> signOutGoogle() async {
+    try {
+      await _googleSignIn.signOut();
+      print("User signed out from Google");
+    } catch (e) {
+      print("Google sign out error: $e");
+    }
   }
 
   // Sign in Email and Password function
